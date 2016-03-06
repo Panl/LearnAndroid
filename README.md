@@ -1,2 +1,2 @@
 # LearnAndroid
-Demo for learning android 
+Demo of learning android 
