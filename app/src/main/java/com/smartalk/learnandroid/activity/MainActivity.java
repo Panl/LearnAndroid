@@ -31,6 +31,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
 
     private void initListView(){
         catalog.add("自定义view之Canvas");
+        catalog.add("一个炫酷的Loading动画");
         lvList.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,catalog));
         lvList.setOnItemClickListener(this);
     }
