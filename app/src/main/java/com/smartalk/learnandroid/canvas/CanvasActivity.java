@@ -1,7 +1,8 @@
-package com.smartalk.learnandroid.activity;
+package com.smartalk.learnandroid.canvas;
 
 import android.os.Bundle;
 
+import com.smartalk.learnandroid.Base.BaseActivity;
 import com.smartalk.learnandroid.R;
 import com.smartalk.learnandroid.model.PieData;
 import com.smartalk.learnandroid.widget.PieView;

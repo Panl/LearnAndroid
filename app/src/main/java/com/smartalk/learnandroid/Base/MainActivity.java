@@ -1,4 +1,4 @@
-package com.smartalk.learnandroid.activity;
+package com.smartalk.learnandroid.Base;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.smartalk.learnandroid.R;
+import com.smartalk.learnandroid.canvas.CanvasActivity;
 
 import java.util.ArrayList;
 import java.util.List;

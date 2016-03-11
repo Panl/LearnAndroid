@@ -1,4 +1,4 @@
-package com.smartalk.learnandroid.activity;
+package com.smartalk.learnandroid.Base;
 
 import android.support.v7.app.AppCompatActivity;
 

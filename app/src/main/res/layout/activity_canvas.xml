@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.smartalk.learnandroid.activity.CanvasActivity">
+    tools:context="com.smartalk.learnandroid.canvas.CanvasActivity">
     <com.smartalk.learnandroid.widget.PieView
         android:id="@+id/pie_view"
         android:layout_width="match_parent"
