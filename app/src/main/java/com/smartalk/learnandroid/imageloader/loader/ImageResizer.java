@@ -1,4 +1,4 @@
-package com.smartalk.learnandroid.imageloader;
+package com.smartalk.learnandroid.imageloader.loader;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;

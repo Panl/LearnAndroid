@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.smartalk.learnandroid.canvas.CanvasActivity">
-    <com.smartalk.learnandroid.widget.PieView
+    <com.smartalk.learnandroid.canvas.widget.PieView
         android:id="@+id/pie_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

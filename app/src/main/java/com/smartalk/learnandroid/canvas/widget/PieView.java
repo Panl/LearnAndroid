@@ -1,4 +1,4 @@
-package com.smartalk.learnandroid.widget;
+package com.smartalk.learnandroid.canvas.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
-import com.smartalk.learnandroid.model.PieData;
+import com.smartalk.learnandroid.canvas.model.PieData;
 
 import java.util.ArrayList;
 

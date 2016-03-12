@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.smartalk.learnandroid.imageloader;
+package com.smartalk.learnandroid.imageloader.loader;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;

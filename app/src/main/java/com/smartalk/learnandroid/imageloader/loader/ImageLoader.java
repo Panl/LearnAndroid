@@ -1,4 +1,4 @@
-package com.smartalk.learnandroid.imageloader;
+package com.smartalk.learnandroid.imageloader.loader;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -10,6 +10,8 @@ import android.os.Message;
 import android.util.Log;
 import android.util.LruCache;
 import android.widget.ImageView;
+
+import com.smartalk.learnandroid.R;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -41,7 +43,7 @@ public class ImageLoader {
     private static final int MAX_POOL_COUNT = CPU_COUNT * 2 + 1;
     private static final long KEEP_ALIVE = 10L;
 
-    private static final int TAG_KEY_URI = 100;
+    private static final int TAG_KEY_URI = R.id.image;
     private static final long DISK_CACHE_SIZE = 1024 * 1024 * 50;
     private static final int IO_BUFFER_SIZE = 1024 * 8;
     private static final int DISK_CACHE_INDEX = 0;
@@ -140,8 +142,26 @@ public class ImageLoader {
     }
 
     public Bitmap loadBitmap(String uri,int reqWidth,int reqHeight){
+        Bitmap bitmap = loadBitmapFromMemCache(uri);
+        if (bitmap != null){
+            return bitmap;
+        }
 
-        return null;
+        try {
+            bitmap = loadBitmapFromDiskCache(uri,reqWidth,reqHeight);
+            if (bitmap != null) {
+                Log.d(TAG, "loadBitmapFromDisk,url:" + uri);
+                return bitmap;
+            }
+            bitmap = loadBitmapFromHttp(uri,reqWidth,reqHeight);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (bitmap == null && !mIsDiskLruCacheCreated) {
+            Log.w(TAG, "encounter error, DiskLruCache is not created.");
+            bitmap = downloadBitmapFromUrl(uri);
+        }
+        return bitmap;
     }
 
     private Bitmap loadBitmapFromMemCache(String uri){

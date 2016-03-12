@@ -1,4 +1,4 @@
-package com.smartalk.learnandroid.widget;
+package com.smartalk.learnandroid.canvas.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;

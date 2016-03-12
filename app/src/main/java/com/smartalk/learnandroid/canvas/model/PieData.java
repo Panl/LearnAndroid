@@ -1,4 +1,4 @@
-package com.smartalk.learnandroid.model;
+package com.smartalk.learnandroid.canvas.model;
 
 import android.support.annotation.NonNull;
 
