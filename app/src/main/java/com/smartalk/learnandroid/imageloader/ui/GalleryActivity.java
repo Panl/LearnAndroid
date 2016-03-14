@@ -153,7 +153,7 @@ public class GalleryActivity extends BaseActivity implements AbsListView.OnScrol
             if (!uri.equals(tag)) {
                 imageView.setImageDrawable(mDefaultBitmapDrawable);
             }
-            if (mIsGridViewIdle && mCanGetBitmapFromNetWork) {
+            if (mCanGetBitmapFromNetWork) {
                 imageView.setTag(uri);
                 mImageLoader.bindBitmap(uri, imageView);
             }

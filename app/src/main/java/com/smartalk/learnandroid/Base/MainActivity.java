@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.smartalk.learnandroid.R;
 import com.smartalk.learnandroid.canvas.CanvasActivity;
+import com.smartalk.learnandroid.customview.CustomActivity;
 import com.smartalk.learnandroid.imageloader.ui.GalleryActivity;
 
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
     private void initListView(){
         catalog.add("自定义view之Canvas");
         catalog.add("自己写的ImageLoader");
+        catalog.add("PageLayout");
 
         lvList.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_list_item_1,catalog));
         lvList.setOnItemClickListener(this);
@@ -47,6 +49,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
                 break;
             case 1:
                 startActivity(new Intent(this, GalleryActivity.class));
+                break;
+            case 2:
+                startActivity(new Intent(this, CustomActivity.class));
                 break;
         }
     }
