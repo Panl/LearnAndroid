@@ -1,118 +1,112 @@
 package com.smartalk.learnandroid.customview;
 
 import android.content.Context;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Scroller;
-
-import com.smartalk.learnandroid.imageloader.MyUtils;
+import android.widget.FrameLayout;
 
 /**
  * Created by panl on 16/3/14.
  * contact panlei106@gmail.com
  */
-public class PageLayout extends ViewGroup {
-    private int screenWidth;
-    private int mLastX;
-    private int mStart;
-    private int mEnd;
-    private Scroller scroller;
+public class PageLayout extends FrameLayout {
+
+    private ViewDragHelper viewDragHelper;
+    private View menuView,mainView;
+    private int width;
+    private ViewDragHelper.Callback callBack = new ViewDragHelper.Callback(){
+
+        @Override
+        public boolean tryCaptureView(View child, int pointerId) {
+            return mainView == child;
+        }
+
+        @Override
+        public int clampViewPositionVertical(View child, int top, int dy) {
+            return 0;
+        }
+
+        @Override
+        public int clampViewPositionHorizontal(View child, int left, int dx) {
+            return left;
+        }
+
+        @Override
+        public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
+            Log.i("dx",dx+"");
+            Log.i("left",left+"");
+            float scale = 1.0f - 0.2f*left/(width-300);
+            changedView.setPivotX(0);
+            changedView.setPivotX(width/2);
+            changedView.setScaleX(scale);
+            changedView.setScaleY(scale);
+            super.onViewPositionChanged(changedView, left, top, dx, dy);
+        }
+
+        @Override
+        public void onViewReleased(View releasedChild, float xvel, float yvel) {
+            super.onViewReleased(releasedChild, xvel, yvel);
+            if (mainView.getLeft() < width/3){
+                viewDragHelper.smoothSlideViewTo(mainView,0,0);
+                ViewCompat.postInvalidateOnAnimation(PageLayout.this);
+            }else {
+                viewDragHelper.smoothSlideViewTo(mainView,width - 300,0);
+                ViewCompat.postInvalidateOnAnimation(PageLayout.this);
+            }
+        }
+    };
 
     public PageLayout(Context context) {
         super(context);
-        init(context);
+        initView();
     }
 
     public PageLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
+        initView();
     }
 
     public PageLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
+        initView();
     }
 
-    private void init(Context context){
-        scroller = new Scroller(context);
-        screenWidth = MyUtils.getScreenMetrics(context).widthPixels;
-    }
-
-
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        int count = getChildCount();
-        for (int i = 0; i < count; i++) {
-            View childView = getChildAt(i);
-            measureChild(childView, widthMeasureSpec, heightMeasureSpec);
-        }
-
+    private void initView(){
+        viewDragHelper = ViewDragHelper.create(this,callBack);
     }
 
     @Override
-    protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        int childCount = getChildCount();
-        MarginLayoutParams layoutParams = (MarginLayoutParams) getLayoutParams();
-        layoutParams.width = screenWidth * childCount;
-        setLayoutParams(layoutParams);
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        menuView = getChildAt(0);
+        mainView = getChildAt(1);
+    }
 
-        for (int i = 0; i < childCount; i++) {
-            View child = getChildAt(i);
-            if (child.getVisibility() != View.GONE){
-                child.layout(i*screenWidth,t,(i+1)*screenWidth,b);
-            }
-        }
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        width = menuView.getMeasuredWidth();
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return viewDragHelper.shouldInterceptTouchEvent(ev);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        int x = (int) event.getX();
-        Log.i("x",x+"");
-        switch (event.getAction()){
-            case MotionEvent.ACTION_DOWN:
-                mStart = getScrollX();
-                break;
-            case MotionEvent.ACTION_MOVE:
-                if (!scroller.isFinished()){
-                    scroller.abortAnimation();
-                }
-                Log.i("getScrollX",getScrollX()+"");
-                int dx = mLastX - x;
-                scrollBy(dx,0);
-                break;
-            case MotionEvent.ACTION_UP:
-                mEnd = getScrollX();
-                int dScrollX = mEnd - mStart;
-                if (dScrollX > 0){
-                    if (dScrollX < screenWidth/3){
-                        scroller.startScroll(getScrollX(),0,-dScrollX,0);
-                    }else {
-                        scroller.startScroll(getScrollX(),0,screenWidth = dScrollX,0);
-                    }
-                }else {
-                    if (-dScrollX < screenWidth/3){
-                        scroller.startScroll(getScrollX(),0,-dScrollX,0);
-                    }else {
-                        scroller.startScroll(getScrollX(),0,-screenWidth - dScrollX,0);
-                    }
-                }
-                break;
-        }
-        mLastX = x;
-        postInvalidate();
+        viewDragHelper.processTouchEvent(event);
         return true;
     }
 
     @Override
     public void computeScroll() {
-        super.computeScroll();
-        if (scroller.computeScrollOffset()){
-            scrollTo(scroller.getCurrX(),0);
-            postInvalidate();
+        if (viewDragHelper.continueSettling(true)){
+            ViewCompat.postInvalidateOnAnimation(this);
         }
     }
 }

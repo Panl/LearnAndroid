@@ -7,14 +7,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/black"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/holo_blue_bright"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:background="@android:color/holo_red_dark"/>
     <View
         android:layout_width="match_parent"
