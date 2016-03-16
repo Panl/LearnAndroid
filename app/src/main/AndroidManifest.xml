@@ -22,7 +22,9 @@
         </activity>
         <activity android:name=".canvas.CanvasActivity" />
         <activity android:name=".imageloader.ui.GalleryActivity" />
-        <activity android:name=".customview.CustomActivity"/>
+        <activity android:name=".customview.CustomActivity" />
+        <activity android:name=".surfaceview.SurfaceActivity" />
+        <activity android:name=".svg.SvgActivity"></activity>
     </application>
 
 </manifest>
