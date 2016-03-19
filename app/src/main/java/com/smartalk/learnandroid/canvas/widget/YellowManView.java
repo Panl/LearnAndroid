@@ -356,8 +356,11 @@ public class YellowManView extends View {
     private void drawFeetShadow(Canvas canvas) {
 
         mPaint.setColor(getResources().getColor(android.R.color.darker_gray));
-        canvas.drawOval(bodyRect.left + bodyWidth * 0.15f, bodyRect.bottom - offset + footHeigh,
-                bodyRect.right - bodyWidth * 0.15f, bodyRect.bottom - offset + footHeigh + mStrokeWidth * 1.3f, mPaint);
+        RectF rectF = new RectF(bodyRect.left + bodyWidth * 0.15f, bodyRect.bottom - offset + footHeigh,
+                bodyRect.right - bodyWidth * 0.15f,bodyRect.bottom - offset + footHeigh + mStrokeWidth * 1.3f);
+        //canvas.drawOval(bodyRect.left + bodyWidth * 0.15f, bodyRect.bottom - offset + footHeigh,
+                //bodyRect.right - bodyWidth * 0.15f, bodyRect.bottom - offset + footHeigh + mStrokeWidth * 1.3f, mPaint);
+        canvas.drawOval(rectF,mPaint);
     }
 
 
