@@ -3,6 +3,7 @@ package com.smartalk.learnandroid.canvas.widget;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.CornerPathEffect;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
@@ -84,6 +85,10 @@ public class YellowManView extends View {
         drawBody(canvas);
         drawBodyStroke(canvas);
         drawClothes(canvas);
+        drawEyesMouth(canvas);
+        drawFeet(canvas);
+        drawFeetShadow(canvas);
+        drawHands(canvas);
     }
 
     private void drawBody(Canvas canvas) {
@@ -245,4 +250,172 @@ public class YellowManView extends View {
     }
 
 
+    private void drawEyesMouth(Canvas canvas) {
+
+        float eyesOffset = radius * 0.1f;//眼睛中心处于上半圆直径 往上的高度偏移
+        mPaint.setStrokeWidth(mStrokeWidth * 5);
+//        计算眼镜带弧行的半径 分两段，以便眼睛中间有隔开的效果
+        float radiusGlassesRibbon = (float) (radius / Math.sin(Math.PI / 20));
+        RectF rect = new RectF();
+        rect.left = bodyRect.left + radius - radiusGlassesRibbon;
+        rect.top = bodyRect.top + radius - (float) (radius / Math.tan(Math.PI / 20)) - radiusGlassesRibbon - eyesOffset;
+        rect.right = rect.left + radiusGlassesRibbon * 2;
+        rect.bottom = rect.top + radiusGlassesRibbon * 2;
+        canvas.drawArc(rect, 81, 3, false, mPaint);
+        canvas.drawArc(rect, 99, -3, false, mPaint);
+
+//眼睛半径
+        float radiusEyes = radius / 3;
+        initPaint();
+        mPaint.setColor(Color.WHITE);
+        mPaint.setStrokeWidth(mStrokeWidth);
+        mPaint.setStyle(Paint.Style.FILL);
+
+        canvas.drawCircle(bodyRect.left + bodyWidth / 2 - radiusEyes - offset, bodyRect.top + radius - eyesOffset, radiusEyes, mPaint);
+        canvas.drawCircle(bodyRect.left + bodyWidth / 2 + radiusEyes + offset, bodyRect.top + radius - eyesOffset, radiusEyes, mPaint);
+
+        mPaint.setColor(colorStroke);
+        mPaint.setStyle(Paint.Style.STROKE);
+        canvas.drawCircle(bodyRect.left + bodyWidth / 2 - radiusEyes - offset, bodyRect.top + radius - eyesOffset, radiusEyes, mPaint);
+        canvas.drawCircle(bodyRect.left + bodyWidth / 2 + radiusEyes + offset, bodyRect.top + radius - eyesOffset, radiusEyes, mPaint);
+
+        final float radiusEyeballBlack = radiusEyes / 3;
+        mPaint.setStyle(Paint.Style.FILL);
+        canvas.drawCircle(bodyRect.left + bodyWidth / 2 - radiusEyes - offset, bodyRect.top + radius - eyesOffset, radiusEyeballBlack, mPaint);
+        canvas.drawCircle(bodyRect.left + bodyWidth / 2 + radiusEyes + offset, bodyRect.top + radius - eyesOffset, radiusEyeballBlack, mPaint);
+
+        mPaint.setColor(Color.WHITE);
+        final float radiusEyeballWhite = radiusEyeballBlack / 2;
+        canvas.drawCircle(bodyRect.left + bodyWidth / 2 - radiusEyes + radiusEyeballWhite - offset * 2,
+                bodyRect.top + radius - radiusEyeballWhite + offset - eyesOffset,
+                radiusEyeballWhite, mPaint);
+        canvas.drawCircle(bodyRect.left + bodyWidth / 2 + radiusEyes + radiusEyeballWhite,
+                bodyRect.top + radius - radiusEyeballWhite + offset - eyesOffset,
+                radiusEyeballWhite, mPaint);
+
+//        画嘴巴，因为位置和眼睛有相对关系，所以写在一块
+        mPaint.setColor(colorStroke);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setStrokeWidth(mStrokeWidth);
+        float radiusMonth = radius;
+        rect.left = bodyRect.left;
+        rect.top = bodyRect.top - radiusMonth / 2.5f;
+        rect.right = rect.left + radiusMonth * 2;
+        rect.bottom = rect.top + radiusMonth * 2;
+        canvas.drawArc(rect, 95, -20, false, mPaint);
+
+    }
+
+    private void drawFeet(Canvas canvas) {
+        mPaint.setStrokeWidth(mStrokeWidth);
+        mPaint.setColor(colorStroke);
+        mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+
+        float radiusFoot = radius / 3 * 0.4f;
+        float leftFootStartX = bodyRect.left + radius - offset * 2;
+        float leftFootStartY = bodyRect.bottom - offset;
+        float footWidthA = radius * 0.5f;//脚宽度大-到半圆结束
+        float footWidthB = footWidthA / 3;//脚宽度-比较细的部分
+
+        //      左脚
+        Path path = new Path();
+        path.moveTo(leftFootStartX, leftFootStartY);
+        path.lineTo(leftFootStartX, leftFootStartY + footHeigh);
+        path.lineTo(leftFootStartX - footWidthA + radiusFoot, leftFootStartY + footHeigh);
+
+        RectF rectF = new RectF();
+        rectF.left = leftFootStartX - footWidthA;
+        rectF.top = leftFootStartY + footHeigh - radiusFoot * 2;
+        rectF.right = rectF.left + radiusFoot * 2;
+        rectF.bottom = rectF.top + radiusFoot * 2;
+        path.addArc(rectF, 90, 180);
+        path.lineTo(rectF.left + radiusFoot + footWidthB, rectF.top);
+        path.lineTo(rectF.left + radiusFoot + footWidthB, leftFootStartY);
+        path.lineTo(leftFootStartX, leftFootStartY);
+        canvas.drawPath(path, mPaint);
+
+//      右脚
+        float rightFootStartX = bodyRect.left + radius + offset * 2;
+        float rightFootStartY = leftFootStartY;
+        path.reset();
+        path.moveTo(rightFootStartX, rightFootStartY);
+        path.lineTo(rightFootStartX, rightFootStartY + footHeigh);
+        path.lineTo(rightFootStartX + footWidthA - radiusFoot, rightFootStartY + footHeigh);
+
+        rectF.left = rightFootStartX + footWidthA - radiusFoot * 2;
+        rectF.top = rightFootStartY + footHeigh - radiusFoot * 2;
+        rectF.right = rectF.left + radiusFoot * 2;
+        rectF.bottom = rectF.top + radiusFoot * 2;
+        path.addArc(rectF, 90, -180);
+        path.lineTo(rectF.right - radiusFoot - footWidthB, rectF.top);
+        path.lineTo(rectF.right - radiusFoot - footWidthB, rightFootStartY);
+        path.lineTo(rightFootStartX, rightFootStartY);
+        canvas.drawPath(path, mPaint);
+    }
+
+    private void drawFeetShadow(Canvas canvas) {
+
+        mPaint.setColor(getResources().getColor(android.R.color.darker_gray));
+        canvas.drawOval(bodyRect.left + bodyWidth * 0.15f, bodyRect.bottom - offset + footHeigh,
+                bodyRect.right - bodyWidth * 0.15f, bodyRect.bottom - offset + footHeigh + mStrokeWidth * 1.3f, mPaint);
+    }
+
+
+    private void drawHands(Canvas canvas) {
+        mPaint.setStrokeWidth(mStrokeWidth);
+        mPaint.setStyle(Paint.Style.FILL_AND_STROKE);
+        mPaint.setColor(colorBody);
+
+//        左手
+        Path path = new Path();
+        float hypotenuse = bodyRect.bottom - radius - handsHeight;
+        float radiusHand = hypotenuse / 6;
+        mPaint.setPathEffect(new CornerPathEffect(radiusHand));
+
+        path.moveTo(bodyRect.left, handsHeight);
+        path.lineTo(bodyRect.left - hypotenuse / 2, handsHeight + hypotenuse / 2);
+        path.lineTo(bodyRect.left +offset, bodyRect.bottom - radius +offset);
+        path.lineTo(bodyRect.left  ,handsHeight);//增加兼容性,path没闭合在一起机子上会使手的下面的点没办法与裤子重合
+        canvas.drawPath(path, mPaint);
+
+        mPaint.setStrokeWidth(mStrokeWidth);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setColor(colorStroke);
+        canvas.drawPath(path, mPaint);
+
+
+
+//        右手
+        path.reset();
+        mPaint.setStyle(Paint.Style.FILL);
+        mPaint.setColor(colorBody);
+
+        path.moveTo(bodyRect.right, handsHeight);
+        path.lineTo(bodyRect.right + hypotenuse / 2, handsHeight + hypotenuse / 2);
+        path.lineTo(bodyRect.right  -offset, bodyRect.bottom - radius +offset);
+        path.lineTo(bodyRect.right, handsHeight);
+        canvas.drawPath(path, mPaint);
+
+        mPaint.setStrokeWidth(mStrokeWidth);
+        mPaint.setStyle(Paint.Style.STROKE);
+        mPaint.setColor(colorStroke);
+        canvas.drawPath(path, mPaint);
+
+//        一个慢动作  - -||| 拐点内侧
+        path.reset();
+        mPaint.setStyle(Paint.Style.FILL);
+        path.moveTo(bodyRect.left, handsHeight + hypotenuse / 2 - mStrokeWidth);
+        path.lineTo(bodyRect.left - mStrokeWidth * 2, handsHeight + hypotenuse / 2 + mStrokeWidth * 2);
+        path.lineTo(bodyRect.left, handsHeight + hypotenuse / 2 + mStrokeWidth);
+        path.lineTo(bodyRect.left, handsHeight + hypotenuse / 2 - mStrokeWidth);
+        canvas.drawPath(path, mPaint);
+
+        path.reset();
+        path.moveTo(bodyRect.right, handsHeight + hypotenuse / 2 - mStrokeWidth);
+        path.lineTo(bodyRect.right + mStrokeWidth * 2, handsHeight + hypotenuse / 2 + mStrokeWidth * 2);
+        path.lineTo(bodyRect.right, handsHeight + hypotenuse / 2 + mStrokeWidth);
+        path.lineTo(bodyRect.right, handsHeight + hypotenuse / 2 - mStrokeWidth);
+        canvas.drawPath(path, mPaint);
+
+    }
 }
