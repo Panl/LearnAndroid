@@ -9,6 +9,7 @@ import android.widget.ListView;
 
 import com.smartalk.learnandroid.R;
 import com.smartalk.learnandroid.canvas.CanvasActivity;
+import com.smartalk.learnandroid.canvas.MiniosActivity;
 import com.smartalk.learnandroid.customview.CustomActivity;
 import com.smartalk.learnandroid.imageloader.ui.GalleryActivity;
 import com.smartalk.learnandroid.surfaceview.SurfaceActivity;
@@ -40,6 +41,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         catalog.add("PageLayout");
         catalog.add("SurfaceView");
         catalog.add("svg");
+        catalog.add("canvas画小黄人");
         lvList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, catalog));
         lvList.setOnItemClickListener(this);
     }
@@ -61,6 +63,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
                 break;
             case 4:
                 startActivity(new Intent(this, SvgActivity.class));
+                break;
+            case 5:
+                startActivity(new Intent(this, MiniosActivity.class));
                 break;
         }
     }

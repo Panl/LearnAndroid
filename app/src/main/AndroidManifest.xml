@@ -24,7 +24,8 @@
         <activity android:name=".imageloader.ui.GalleryActivity" />
         <activity android:name=".customview.CustomActivity" />
         <activity android:name=".surfaceview.SurfaceActivity" />
-        <activity android:name=".svg.SvgActivity"></activity>
+        <activity android:name=".svg.SvgActivity" />
+        <activity android:name=".canvas.MiniosActivity"></activity>
     </application>
 
 </manifest>
