@@ -59,7 +59,7 @@ public class ImageLoader {
         }
     };
 
-    public static final Executor THREAD_POOL_EXCUTOR = new ThreadPoolExecutor(
+    public static final Executor THREAD_POOL_EXECUTOR = new ThreadPoolExecutor(
             CORE_POOL_COUNT,
             MAX_POOL_COUNT,KEEP_ALIVE,
             TimeUnit.SECONDS,
@@ -138,7 +138,7 @@ public class ImageLoader {
 
 
         };
-        THREAD_POOL_EXCUTOR.execute(loadBitmapTask);
+        THREAD_POOL_EXECUTOR.execute(loadBitmapTask);
     }
 
     public Bitmap loadBitmap(String uri,int reqWidth,int reqHeight){
@@ -306,7 +306,6 @@ public class ImageLoader {
             this.imageView = imageView;
             this.uri = uri;
             this.bitmap = bitmap;
-
         }
     }
 }

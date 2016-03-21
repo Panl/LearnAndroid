@@ -20,5 +20,6 @@ public class LoadingView extends View {
     public LoadingView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
-    
+
+
 }
