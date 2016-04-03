@@ -21,5 +21,8 @@ public class LoadingView extends View {
         super(context, attrs, defStyleAttr);
     }
 
+    private void init(){
+        
+    }
 
 }
