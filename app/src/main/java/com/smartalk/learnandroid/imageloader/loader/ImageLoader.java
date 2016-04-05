@@ -212,9 +212,9 @@ public class ImageLoader {
     }
 
     public boolean downloadUrlToStream(String urlString,OutputStream outputStream){
-        HttpURLConnection urlConnection = null;
-        BufferedOutputStream bufferedOutputStream = null;
-        BufferedInputStream bufferedInputStream = null;
+        HttpURLConnection urlConnection;
+        BufferedOutputStream bufferedOutputStream;
+        BufferedInputStream bufferedInputStream;
         final URL url;
         try {
             url = new URL(urlString);
