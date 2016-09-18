@@ -53,20 +53,32 @@ public class RecyclerViewActivity extends AppCompatActivity {
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.action_insert:
+        if (list.size() < 2) {
+          return true;
+        }
         list.add(1, String.valueOf(100));
         animatorAdapter.notifyItemInserted(1);
         break;
       case R.id.action_remove:
+        if (list.size() < 2) {
+          return true;
+        }
         list.remove(1);
         animatorAdapter.notifyItemRemoved(1);
         break;
       case R.id.action_move:
+        if (list.size() < 4) {
+          return true;
+        }
         list.set(1, "haha");
         animatorAdapter.notifyItemChanged(1);
         Collections.swap(list, 1, 3);
         animatorAdapter.notifyItemMoved(1, 3);
         break;
       case R.id.action_remove_add:
+        if (list.size() < 2) {
+          return true;
+        }
         list.remove(1);
         list.add("1024");
         animatorAdapter.notifyItemRemoved(1);
