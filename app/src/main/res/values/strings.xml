@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">LearnAndroid</string>
+    <string name="insert">insert item</string>
+    <string name="remove">remove item</string>
+    <string name="move">move item</string>
+    <string name="remove_add">remove and insert</string>
 </resources>

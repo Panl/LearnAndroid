@@ -12,6 +12,7 @@ import com.smartalk.learnandroid.canvas.CanvasActivity;
 import com.smartalk.learnandroid.canvas.MiniosActivity;
 import com.smartalk.learnandroid.customview.CustomActivity;
 import com.smartalk.learnandroid.imageloader.ui.GalleryActivity;
+import com.smartalk.learnandroid.recyclerview.RecyclerViewActivity;
 import com.smartalk.learnandroid.surfaceview.SurfaceActivity;
 import com.smartalk.learnandroid.svg.SvgActivity;
 
@@ -42,6 +43,7 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
         catalog.add("SurfaceView");
         catalog.add("svg");
         catalog.add("canvas画小黄人");
+        catalog.add("itemAnimation");
         lvList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, catalog));
         lvList.setOnItemClickListener(this);
     }
@@ -66,6 +68,9 @@ public class MainActivity extends BaseActivity implements AdapterView.OnItemClic
                 break;
             case 5:
                 startActivity(new Intent(this, MiniosActivity.class));
+                break;
+            case 6:
+                startActivity(new Intent(this, RecyclerViewActivity.class));
                 break;
         }
     }
