@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.smartalk.learnandroid.R;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class RecyclerViewActivity extends AppCompatActivity {
@@ -72,7 +71,9 @@ public class RecyclerViewActivity extends AppCompatActivity {
         }
         list.set(1, "haha");
         animatorAdapter.notifyItemChanged(1);
-        Collections.swap(list, 1, 3);
+        //Collections.swap(list, 1, 3);
+        String remove = list.remove(1);
+        list.add(3, remove);
         animatorAdapter.notifyItemMoved(1, 3);
         break;
       case R.id.action_remove_add:
