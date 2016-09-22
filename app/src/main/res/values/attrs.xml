@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircleView">
+        <attr name="circleStrokeColor" format="color"/>
+        <attr name="circleStrokeWidth" format="dimension"/>
+        <attr name="circleGradientStartColor" format="color"/>
+        <attr name="circleGradientEndColor" format="color"/>
+        <attr name="circleIsFillStyle" format="boolean"/>
+    </declare-styleable>
+</resources>
