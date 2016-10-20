@@ -13,6 +13,7 @@ import com.smartalk.learnandroid.canvas.MiniosActivity;
 import com.smartalk.learnandroid.customview.CustomActivity;
 import com.smartalk.learnandroid.imageloader.ui.GalleryActivity;
 import com.smartalk.learnandroid.recyclerview.RecyclerViewActivity;
+import com.smartalk.learnandroid.supportlibrary.BottomNavigationActivity;
 import com.smartalk.learnandroid.surfaceview.SurfaceActivity;
 import com.smartalk.learnandroid.svg.SvgActivity;
 
@@ -21,57 +22,61 @@ import java.util.List;
 
 public class MainActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
-    private ListView lvList;
-    private List<String> catalog = new ArrayList<>();
+  private ListView lvList;
+  private List<String> catalog = new ArrayList<>();
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initViewById();
-        initListView();
-    }
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    initViewById();
+    initListView();
+  }
 
-    private void initViewById() {
-        lvList = (ListView) findViewById(R.id.lv_list);
-    }
+  private void initViewById() {
+    lvList = (ListView) findViewById(R.id.lv_list);
+  }
 
-    private void initListView() {
-        catalog.add("自定义view之Canvas");
-        catalog.add("自己写的ImageLoader");
-        catalog.add("PageLayout");
-        catalog.add("SurfaceView");
-        catalog.add("svg");
-        catalog.add("canvas画小黄人");
-        catalog.add("itemAnimation");
-        lvList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, catalog));
-        lvList.setOnItemClickListener(this);
-    }
+  private void initListView() {
+    catalog.add("自定义view之Canvas");
+    catalog.add("自己写的ImageLoader");
+    catalog.add("PageLayout");
+    catalog.add("SurfaceView");
+    catalog.add("svg");
+    catalog.add("canvas画小黄人");
+    catalog.add("itemAnimation");
+    catalog.add("BottomNavigationView");
+    lvList.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, catalog));
+    lvList.setOnItemClickListener(this);
+  }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        switch (position) {
-            case 0:
-                startActivity(new Intent(this, CanvasActivity.class));
-                break;
-            case 1:
-                startActivity(new Intent(this, GalleryActivity.class));
-                break;
-            case 2:
-                startActivity(new Intent(this, CustomActivity.class));
-                break;
-            case 3:
-                startActivity(new Intent(this, SurfaceActivity.class));
-                break;
-            case 4:
-                startActivity(new Intent(this, SvgActivity.class));
-                break;
-            case 5:
-                startActivity(new Intent(this, MiniosActivity.class));
-                break;
-            case 6:
-                startActivity(new Intent(this, RecyclerViewActivity.class));
-                break;
-        }
+  @Override
+  public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    switch (position) {
+      case 0:
+        startActivity(new Intent(this, CanvasActivity.class));
+        break;
+      case 1:
+        startActivity(new Intent(this, GalleryActivity.class));
+        break;
+      case 2:
+        startActivity(new Intent(this, CustomActivity.class));
+        break;
+      case 3:
+        startActivity(new Intent(this, SurfaceActivity.class));
+        break;
+      case 4:
+        startActivity(new Intent(this, SvgActivity.class));
+        break;
+      case 5:
+        startActivity(new Intent(this, MiniosActivity.class));
+        break;
+      case 6:
+        startActivity(new Intent(this, RecyclerViewActivity.class));
+        break;
+      case 7:
+        startActivity(new Intent(this, BottomNavigationActivity.class));
+
     }
+  }
 }

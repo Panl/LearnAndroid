@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Home"
+          android:id="@+id/action_insert"
+          android:icon="@mipmap/ic_launcher"/>
+    <item android:title="Fourm"
+          android:id="@+id/action_remove"
+          android:icon="@mipmap/ic_launcher"/>
+    <item android:title="Alert"
+          android:id="@+id/action_move"
+          android:icon="@mipmap/ic_launcher"/>
+    <item android:title="Me"
+          android:id="@+id/action_remove_add"
+          android:icon="@mipmap/ic_launcher"/>
+</menu>

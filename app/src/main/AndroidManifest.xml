@@ -28,6 +28,8 @@
         <activity android:name=".canvas.MiniosActivity"/>
         <activity android:name=".recyclerview.RecyclerViewActivity">
         </activity>
+        <activity android:name=".supportlibrary.BottomNavigationActivity">
+        </activity>
     </application>
 
 </manifest>
